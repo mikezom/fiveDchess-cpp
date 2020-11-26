@@ -14,6 +14,7 @@ public:
   // ~Chessboard();
   void print(); // print a board
   void print_row(int row_number); // print a row
+  char print_piece(Piece p);
 
   int get_time() {return time_;}
   int get_multiverse() {return multiverse_;}

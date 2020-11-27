@@ -2,7 +2,7 @@ CC = g++
 DEBUG = -g
 CFLAGS = -Wall -c $(DEBUG)
 LFLAGS = -Wall $(DEBUG)
-OBJS = chessboard.o
+OBJS = chessboard.o node.o fiveDchess.o
 
 all: main.o $(OBJS)
 	$(CC) $(LFLAGS) -o output main.o $(OBJS)

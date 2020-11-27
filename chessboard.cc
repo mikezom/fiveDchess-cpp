@@ -1,5 +1,16 @@
 #include "chessboard.h"
 
+Chessboard::Chessboard(){
+  time_ = 0;
+  multiverse_ = 0;
+
+  for(int i = 0; i < 8; ++i){
+    for(int j = 0; j < 8; ++j){
+      board_[i][j] = empty;
+    }
+  }
+}
+
 Chessboard::Chessboard(int time, int multiverse){
   time_ = time;
   multiverse_ = multiverse;

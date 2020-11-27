@@ -11,7 +11,7 @@ public:
 
   int get_time() {return board_.get_time();}
   int get_multiverse() {return board_.get_multiverse();}
-  Chessboard get_chessboard() {return board_;}
+  Chessboard& get_chessboard() {return board_;}
   std::vector<Node*> get_child() {return child_;}
 
   void add_child(Node* new_node);

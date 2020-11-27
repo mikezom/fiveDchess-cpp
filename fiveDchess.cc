@@ -34,7 +34,7 @@ Node* FiveDChess::get_node(int time, int multiverse, Node* root){
 
 Chessboard FiveDChess::get_board(int time, int multiverse){
   // search the whole tree to find correct chessboard
-  return root_.get_chessboard();
+  return get_node(time, multiverse, get_root())->get_chessboard();
 }
 
 Piece FiveDChess::get_piece(Position position){
@@ -93,14 +93,10 @@ void FiveDChess::move(Action action){
 
     if(action.start_position.time == action.end_position.time && action.start_position.multiverse == action.end_position.multiverse){
       // not time traveling
-      printf("moving white pawn\n");
       new_node->get_chessboard().add_piece(action.piece_to_move, action.end_position.row, action.end_position.column);
       new_node->get_chessboard().remove_piece(action.start_position.row, action.start_position.column);
     }
     new_node->get_chessboard().set_time(end_time + 1);
-
-    printf("Printing new board\n");
-    new_node->get_chessboard().print();
 
     // add the new node to the child
     get_node(end_time, end_multiverse, get_root())->add_child(new_node);

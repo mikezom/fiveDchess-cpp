@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <string>
+#include <cstring>
 #include <stdio.h>
 
 enum Piece{empty, b_pawn, b_bishop, b_knight, b_rook, b_queen, b_king,
@@ -14,6 +15,18 @@ public:
   Chessboard();
   Chessboard(int time, int multiverse);
   Chessboard(int time, int multiverse, Piece board[8][8]);
+
+  Chessboard& operator=(const Chessboard& lhs){
+    time_ = lhs.time_;
+    multiverse_ = lhs.multiverse_;
+    is_active_ = lhs.is_active_;
+    now_playing_ = lhs.now_playing_;
+
+    memcpy((void *)board_, (void *)lhs.board_, sizeof(Piece) * 8 * 8);
+
+    return *this;
+  }
+
   // ~Chessboard();
   void print(); // print a board
   void print_row(int row_number); // print a row

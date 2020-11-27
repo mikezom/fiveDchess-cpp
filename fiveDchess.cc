@@ -102,31 +102,31 @@ void FiveDChess::print(){
   
   for(int multiverse = furthest_multiverse_; multiverse >= 0; --multiverse){
     for(int time = 0; time < furthest_time_; ++time){
-      //if(get_node(time, multiverse) != NULL){
+      if(get_node(time, multiverse).is_null() != true){
         std::cout << "╔" << time << "," << multiverse << "═════╗";
-      //} else {
-      //  std::cout << "          ";
-      //}
+      } else {
+        std::cout << "          ";
+      }
     }
     std::cout << std::endl;
     for(int row = 7; row >= 0; --row){
       for(int time = 0; time < furthest_time_; ++time){
-        //if(get_node(time, multiverse) != NULL){
+        if(get_node(time, multiverse).is_null() != true){
           std::cout << "║";
           get_node(time, multiverse).get_chessboard().print_row(row);
           std::cout << "║";
-        //} else {
-        //  std::cout << "          ";
-        //}
+        } else {
+          std::cout << "          ";
+        }
       }
       std::cout << std::endl;
     }
     for(int time = 0; time < furthest_time_; ++time){
-      //if(get_node(time, multiverse) != NULL){
+      if(get_node(time, multiverse).is_null() != true){
         std::cout << "╚════════╝";
-      //} else {
-      //  std::cout << "          ";
-      //}
+      } else {
+        std::cout << "          ";
+      }
     }
     std::cout << std::endl;
   }

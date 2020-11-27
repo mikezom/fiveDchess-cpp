@@ -30,6 +30,9 @@ public:
   void set_color(Color player) {now_playing_ = player;}
   void set_active(bool is_active) {is_active_ = is_active;}
 
+  // using two function to implement moving
+  void add_piece(Piece piece, int row, int column);
+  void remove_piece(int row, int column);
 private:
   int time_;
   int multiverse_;

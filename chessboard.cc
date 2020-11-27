@@ -57,6 +57,14 @@ Chessboard::Chessboard(int time, int multiverse, Piece board[8][8]){
   }
 }
 
+void Chessboard::add_piece(Piece piece, int row, int column){
+  board_[row][column] = piece;
+}
+
+void Chessboard::remove_piece(int row, int column){
+  board_[row][column] = empty;
+}
+
 void Chessboard::print(){
   std::cout << "╔" << time_ << "," << multiverse_ << "═════╗" << std::endl;
   for(int i = 7; i >= 0; --i){

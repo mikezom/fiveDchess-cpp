@@ -10,7 +10,7 @@ FiveDChess::FiveDChess(std::string w_name, std::string b_name){
 
 Node FiveDChess::get_node(int time, int multiverse){
   // search the whole tree to find correct node
-  // if unable to find node, return NULL
+  // if unable to find node, return a node with is_null_ == true
   return root_;
 }
 
@@ -57,7 +57,7 @@ bool FiveDChess::is_valid(Action action){
 
   // TODO: rules of each pieces
 
-  // TODO: start position need to be valid
+  // TODO: start position need to be valid (board need to be active)
 
   return true;
 }
@@ -74,6 +74,8 @@ void FiveDChess::move(Action action){
                                    end_multiverse));
 
     // TODO: change the position of piece in new board
+
+    // TODO: erase the start position
 
     // add the new node to the child
     get_node(end_time, end_multiverse).add_child(new_node);

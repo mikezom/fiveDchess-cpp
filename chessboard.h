@@ -46,6 +46,7 @@ public:
   // using two function to implement moving
   void add_piece(Piece piece, int row, int column);
   void remove_piece(int row, int column);
+  void change_player();
 private:
   int time_;
   int multiverse_;

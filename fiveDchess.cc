@@ -42,6 +42,9 @@ Piece FiveDChess::get_piece(Position position){
 }
 
 Action FiveDChess::action_parser(std::string ac){
+  char* temp;
+  strcpy(temp, ac.c_str());
+
   Position new_start_position = {1, 1, 0, 0};
   Position new_end_position = {3, 1, 0, 0};
   Action new_action = {w_pawn, new_start_position, new_end_position, white};
@@ -95,11 +98,14 @@ void FiveDChess::move(Action action){
       // not time traveling
       new_node->get_chessboard().add_piece(action.piece_to_move, action.end_position.row, action.end_position.column);
       new_node->get_chessboard().remove_piece(action.start_position.row, action.start_position.column);
+      new_node->get_chessboard().change_player();
     }
     new_node->get_chessboard().set_time(end_time + 1);
 
     // add the new node to the child
     get_node(end_time, end_multiverse, get_root())->add_child(new_node);
+
+    // set original board to inactive
 
     // TODO: check condition to increment max time and multiverse
     increment_furthest_time();
@@ -115,6 +121,7 @@ void FiveDChess::submit(){
     now_playing_ = black;
   } else {
     now_playing_ = white;
+    ++turn_;
   }
 }
 

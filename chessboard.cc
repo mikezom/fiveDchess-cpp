@@ -3,6 +3,8 @@
 Chessboard::Chessboard(){
   time_ = 0;
   multiverse_ = 0;
+  is_active_ = true;
+  now_playing_ = white;
 
   for(int i = 0; i < 8; ++i){
     for(int j = 0; j < 8; ++j){
@@ -14,6 +16,8 @@ Chessboard::Chessboard(){
 Chessboard::Chessboard(int time, int multiverse){
   time_ = time;
   multiverse_ = multiverse;
+  is_active_ = true;
+  now_playing_ = white;
 
   // initialize the board
   for(int i = 0; i < 8; ++i){
@@ -49,6 +53,8 @@ Chessboard::Chessboard(int time, int multiverse){
 Chessboard::Chessboard(int time, int multiverse, Piece board[8][8]){
   time_ = time;
   multiverse_ = multiverse;
+  is_active_ = true;
+  now_playing_ = white;
 
   for(int i = 0; i < 8; ++i){
     for(int j = 0; j < 8; ++j){
@@ -141,5 +147,13 @@ char Chessboard::print_piece(Piece p){
   default:
     return '=';
     break;
+  }
+}
+
+void Chessboard::change_player(){
+  if(now_playing_ == white){
+    now_playing_ = black;
+  } else {
+    now_playing_ = white;
   }
 }

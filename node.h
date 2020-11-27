@@ -7,14 +7,16 @@
 class Node{
 public:
   Node();
-  Node(Chessboard board[8][8]);
+  Node(Chessboard chessboard);
 
   int get_time() {return board_.get_time();}
   int get_multiverse() {return board_.get_multiverse();}
+  Chessboard get_chessboard() {return board_;}
 
+  void add_child(Node new_node);
 private:
   Chessboard board_;
-  std::vector<Node *>child_;
+  std::vector<Node>child_;
 };
 
 #endif

@@ -1,11 +1,16 @@
-#include "chessboard.h"
+#include "fiveDchess.h"
 
 #include <iostream>
 
 int main(){
   std::cout << "Initializing 5D Chess\n";
 
-  Chessboard chess = Chessboard(0,0);
+  FiveDChess chess = FiveDChess();
+  chess.move(chess.action_parser("asdf"));
+  chess.move(chess.action_parser("asdf"));
+  chess.move(chess.action_parser("asdf"));
+  chess.move(chess.action_parser("asdf"));
+  chess.move(chess.action_parser("asdf"));
   chess.print();
 
   return 0;

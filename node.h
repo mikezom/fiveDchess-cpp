@@ -12,14 +12,12 @@ public:
   int get_time() {return board_.get_time();}
   int get_multiverse() {return board_.get_multiverse();}
   Chessboard get_chessboard() {return board_;}
-  bool is_null() {return is_null_;}
+  std::vector<Node*> get_child() {return child_;}
 
-  void set_null() {is_null_ = true;}
-  void add_child(Node new_node);
+  void add_child(Node* new_node);
 private:
   Chessboard board_;
-  std::vector<Node>child_;
-  bool is_null_;
+  std::vector<Node*>child_;
 };
 
 #endif

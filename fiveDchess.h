@@ -30,7 +30,8 @@ public:
              std::string b_name = "black");
 
   Piece get_piece(Position position);
-  Node get_node(int time, int multiverse);
+  Node* get_node(int time, int multiverse, Node* root);
+  Node* get_root();
   Chessboard get_board(int time, int multiverse);
   bool get_check() {return is_check_;}
   int get_furthest_time() {return furthest_time_;}

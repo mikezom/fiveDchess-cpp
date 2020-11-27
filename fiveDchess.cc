@@ -8,10 +8,28 @@ FiveDChess::FiveDChess(std::string w_name, std::string b_name){
   furthest_multiverse_ = 0;
 }
 
-Node FiveDChess::get_node(int time, int multiverse){
+Node* FiveDChess::get_root(){
+  Node *temp = &root_;
+  return temp;
+}
+
+Node* FiveDChess::get_node(int time, int multiverse, Node* root){
   // search the whole tree to find correct node
-  // if unable to find node, return a node with is_null_ == true
-  return root_;
+  // if unable to find node, return NULL
+  Node *temp = root;
+  if(temp == NULL)
+    return NULL;
+  if(temp->get_chessboard().get_time() == time &&
+     temp->get_chessboard().get_multiverse() == multiverse){
+    return temp;
+  } else {
+    for(int i = 0; i < root->get_child().size(); i++){
+      if((temp = get_node(time, multiverse, root->get_child()[i])) != NULL){
+        return temp;
+      }
+    }
+  }
+  return NULL;
 }
 
 Chessboard FiveDChess::get_board(int time, int multiverse){
@@ -24,9 +42,9 @@ Piece FiveDChess::get_piece(Position position){
 }
 
 Action FiveDChess::action_parser(std::string ac){
-  struct Position new_start_position = {1, 1, 0, 0};
-  struct Position new_end_position = {3, 1, 0, 0};
-  struct Action new_action = {w_pawn, new_start_position, new_end_position, white};
+  Position new_start_position = {1, 1, 0, 0};
+  Position new_end_position = {3, 1, 0, 0};
+  Action new_action = {w_pawn, new_start_position, new_end_position, white};
 
   return new_action;
 }
@@ -70,18 +88,25 @@ void FiveDChess::move(Action action){
     int end_time = action.end_position.time;
     int end_multiverse = action.end_position.multiverse;
 
-    Node new_node = Node(get_board(end_time,
-                                   end_multiverse));
+    Node* new_node = new Node(get_board(end_time,
+                                        end_multiverse));
 
-    // TODO: change the position of piece in new board
+    if(action.start_position.time == action.end_position.time && action.start_position.multiverse == action.end_position.multiverse){
+      // not time traveling
+      printf("moving white pawn\n");
+      new_node->get_chessboard().add_piece(action.piece_to_move, action.end_position.row, action.end_position.column);
+      new_node->get_chessboard().remove_piece(action.start_position.row, action.start_position.column);
+    }
+    new_node->get_chessboard().set_time(end_time + 1);
 
-    // TODO: erase the start position
+    printf("Printing new board\n");
+    new_node->get_chessboard().print();
 
     // add the new node to the child
-    get_node(end_time, end_multiverse).add_child(new_node);
+    get_node(end_time, end_multiverse, get_root())->add_child(new_node);
 
     // TODO: check condition to increment max time and multiverse
-    increment_furthest_time();                            
+    increment_furthest_time();
   } else {
     printf("Action invalid!\n");
   }
@@ -104,7 +129,7 @@ void FiveDChess::print(){
   
   for(int multiverse = furthest_multiverse_; multiverse >= 0; --multiverse){
     for(int time = 0; time < furthest_time_; ++time){
-      if(get_node(time, multiverse).is_null() != true){
+      if(get_node(time, multiverse, get_root()) != NULL){
         std::cout << "╔" << time << "," << multiverse << "═════╗";
       } else {
         std::cout << "          ";
@@ -113,9 +138,9 @@ void FiveDChess::print(){
     std::cout << std::endl;
     for(int row = 7; row >= 0; --row){
       for(int time = 0; time < furthest_time_; ++time){
-        if(get_node(time, multiverse).is_null() != true){
+        if(get_node(time, multiverse, get_root()) != NULL){
           std::cout << "║";
-          get_node(time, multiverse).get_chessboard().print_row(row);
+          get_node(time, multiverse, get_root())->get_chessboard().print_row(row);
           std::cout << "║";
         } else {
           std::cout << "          ";
@@ -124,7 +149,7 @@ void FiveDChess::print(){
       std::cout << std::endl;
     }
     for(int time = 0; time < furthest_time_; ++time){
-      if(get_node(time, multiverse).is_null() != true){
+      if(get_node(time, multiverse, get_root()) != NULL){
         std::cout << "╚════════╝";
       } else {
         std::cout << "          ";

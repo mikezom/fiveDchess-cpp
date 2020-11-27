@@ -7,10 +7,6 @@ int main(){
 
   FiveDChess chess = FiveDChess();
   chess.move(chess.action_parser("asdf"));
-  chess.move(chess.action_parser("asdf"));
-  chess.move(chess.action_parser("asdf"));
-  chess.move(chess.action_parser("asdf"));
-  chess.move(chess.action_parser("asdf"));
   chess.print();
 
   return 0;

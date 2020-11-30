@@ -1,4 +1,4 @@
 # 5D Chess in c++
-  Slowly progressing.
+  Aborting until winter break.
 
   ![implementation](images/UML.png)
